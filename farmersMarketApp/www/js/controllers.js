@@ -88,27 +88,22 @@ angular.module('starter.controllers', [])
             var markets =  places.results;
             console.log("markets ", markets);
 
-            
+             var closeMarketNameArray = [];
             var closeMarketIdArray = [];
               //loop through markets object, pull out the five closest market id's, and store in an array
             for(var i=0; i < 5; i++){
               //push id of current item into closeMarketIdArray variable
               closeMarketIdArray.push(markets[i].id);
+              closeMarketNameArray.push(markets[i].marketname);
             }
             console.log("closeMarketArray ", closeMarketIdArray);
+            console.log("closeMarketNameArray ", closeMarketNameArray);
 
             var closeMarketObjectsArray = [];
 
-              //loop through id's in closeMarketIdArray and store details in object
-              //details needed 
-                //address
-                //lat
-                //lng
-                //products
-                //days open
-                for(var i = 0; i < closeMarketIdArray.length; i++){
+            var getMarketDetails = function(marketNameGiven, idGiven){
                      $q(function(resolve, reject) {
-                    $http.get('http://search.ams.usda.gov/farmersmarkets/v1/data.svc/mktDetail?id='+closeMarketIdArray[i])
+                    $http.get('http://search.ams.usda.gov/farmersmarkets/v1/data.svc/mktDetail?id='+idGiven)
                       .success(
                         function(addressResponse) {
                           resolve(addressResponse);
@@ -119,6 +114,7 @@ angular.module('starter.controllers', [])
                       );
                     }).then(function(details){
                         console.log("details ", details);
+                        console.log("name", marketName);
 
                         //parse lat and lng from url address recived from USDA api Googlelink key
                         var parsedLat = parseFloat(details.marketdetails.GoogleLink.split("?q=")[1].split("%2C%20")[0]);
@@ -130,7 +126,8 @@ angular.module('starter.controllers', [])
                           "products" : details.marketdetails.Products,
                           "schedule" : details.marketdetails.Schedule,
                           "lat" : parsedLat,
-                          "lng" : parsedLng
+                          "lng" : parsedLng,
+                          "marketname" : marketNameGiven
                         }
 
                         //push into closeMarketObjectsArray 
@@ -145,7 +142,9 @@ angular.module('starter.controllers', [])
                         });
 
                           var infoWindowOptions = {
-                            content: '<h1>'+marketToPush.address+'</h1>'
+                            content: '<h3>'+marketToPush.marketname+'</h3>'
+                                      +'<br<<p>'+marketToPush.address+'</p>'
+                                      +'<br<<p>'+marketToPush.schedule+'</p>'
                         };
 
                         //set an info window, passing in inforWindowOptions above
@@ -159,7 +158,31 @@ angular.module('starter.controllers', [])
                         });
 
                     })
-                }
+    }
+
+              //loop through id's in closeMarketIdArray and store details in object
+              //details needed 
+                //address
+                //lat
+                //lng
+                //products
+                //days open
+
+                //this is referenced for each marketname because the for loop moves on to the next index before the name can be refenced with the i variable
+
+                for(var i = 0; i < closeMarketIdArray.length; i++){
+
+                  //splits market name into an array and removes distance which is at index 0 and is included in the name
+                  var marketName = closeMarketNameArray[i].split(" ").splice(1).join(" ");
+
+                    //this function gets the market details for each place, and accepts the name of the current market as an argument
+                    getMarketDetails(marketName, closeMarketIdArray[i]);
+
+                    console.log("closeMarketIdArray[i] ", closeMarketIdArray[i]);
+
+
+                  }
+                    
 
 
 
