@@ -2,6 +2,7 @@ angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope, $cordovaGeolocation, $q, $http) {
 
+
   var posOptions = {timeout: 10000, enableHighAccuracy: false};
   $cordovaGeolocation
     .getCurrentPosition(posOptions)
@@ -35,6 +36,22 @@ angular.module('starter.controllers', [])
           title: 'ME',
           animation: google.maps.Animation.DROP
         });
+
+        var infoWindowOptions = {
+    content: 'Moscone Is Here!'
+};
+
+//set an info window, passing in inforWindowOptions above
+var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
+
+//add click event to marker, this will open up an infor window on click with the information in infoWindowOptions
+google.maps.event.addListener(marker,'click',function(e){
+  
+  infoWindow.open(map, marker);
+  
+});
+
+
 
          //get current address of device in order to pull out zip code by initiating a promise
          var getAddress = $q(function(resolve, reject) {
