@@ -38,18 +38,18 @@ angular.module('starter.controllers', [])
         });
 
         var infoWindowOptions = {
-    content: 'Moscone Is Here!'
-};
+          content: 'You Are Here!'
+      };
 
-//set an info window, passing in inforWindowOptions above
-var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
+      //set an info window, passing in inforWindowOptions above
+      var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
 
-//add click event to marker, this will open up an infor window on click with the information in infoWindowOptions
-google.maps.event.addListener(marker,'click',function(e){
-  
-  infoWindow.open(map, marker);
-  
-});
+      //add click event to marker, this will open up an infor window on click with the information in infoWindowOptions
+      google.maps.event.addListener(marker,'click',function(e){
+        
+        infoWindow.open(map, marker);
+        
+      });
 
 
 
@@ -143,6 +143,21 @@ google.maps.event.addListener(marker,'click',function(e){
                           title: 'Hello World!',
                           animation: google.maps.Animation.DROP
                         });
+
+                          var infoWindowOptions = {
+                            content: '<h1>'+marketToPush.address+'</h1>'
+                        };
+
+                        //set an info window, passing in inforWindowOptions above
+                        var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
+
+                        //add click event to marker, this will open up an infor window on click with the information in infoWindowOptions
+                        google.maps.event.addListener(marketToMap,'click',function(e){
+                          
+                          infoWindow.open(map, marketToMap);
+                          
+                        });
+
                     })
                 }
 
