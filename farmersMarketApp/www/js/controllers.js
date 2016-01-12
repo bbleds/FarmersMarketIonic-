@@ -195,14 +195,20 @@ angular.module('starter.controllers', [])
 
                   }
 
-                  //attach event for clearing markers
-                      //show five closest markets to zip code
+                  //attach event for clearing old markers, setting new markers, and panning to new zip code
+                      //show five closest markets to new zip code
                       //the keypress event is passed in
                       $scope.zipEnter = function($event, enterZip){
+                        
+                        //clear old markers
+                          for(var i = 0; i < markerArray.length; i++){
 
-                        console.log("enterZip ", enterZip);
+                            //for each item in array, clear from map
+                            markerArray[i].setMap(null);
 
-                        //need an array of marker refs
+                          }
+
+
 
                         //capture which key was pressed
                        var keyCode = $event.keyCode;
@@ -210,48 +216,46 @@ angular.module('starter.controllers', [])
                         //if enter key was pressed
                         console.log("$scope.enterZip ", enterZip);
                         if(keyCode === 13){
+                          
+                          //return promise for data received from new google maps api call
+                          $q(function(resolve, reject) {
+                            $http.get('http://maps.googleapis.com/maps/api/geocode/json?address='+enterZip+'&country=us')
+                            .success(
+                              function(addressResponse) {
+                                resolve(addressResponse);
 
-                         //remove current markers
-                         markerArray[0].setMap(null);
+                              }, function(error) {
+                                reject(error);
+                              }
+                            );
 
-                      $q(function(resolve, reject) {
-                        $http.get('http://maps.googleapis.com/maps/api/geocode/json?address='+enterZip+'&country=us')
-                        .success(
-                          function(addressResponse) {
-                            resolve(addressResponse);
+                            //promise resolves address
+                          }).then(function(zipAddress){
+                            console.log("zipAddress ", zipAddress);
 
-                          }, function(error) {
-                            reject(error);
-                          }
-                        );
+                            //hold latitude of new location
+                            var lat = zipAddress.results[0].geometry.location.lat;
 
-                        //promise resolves address
-                      }).then(function(zipAddress){
-                        console.log("zipAddress ", zipAddress);
+                            //hold longitude of new location
+                            var lng = zipAddress.results[0].geometry.location.lng;
 
-                        //hold latitude of new location
-                        var lat = zipAddress.results[0].geometry.location.lat;
+                            //holds the center of the new new location
+                            var newCenter = {
+                              "lat" : lat,
+                              "lng" : lng
+                            }
 
-                        //hold longitude of new location
-                        var lng = zipAddress.results[0].geometry.location.lng;
+                            //pan map to new location
+                            map.panTo(newCenter);
 
-                        //holds the center of the new new location
-                        var newCenter = {
-                          "lat" : lat,
-                          "lng" : lng
-                        }
+                          });
 
-                        //pan map to new location
-                        map.panTo(newCenter);
+                              //if numbers entered are an actual zip code
+                                //clear map of all current markers
+                                //populate map with new markers
 
-                      });
-
-                          //if numbers entered are an actual zip code
-                            //clear map of all current markers
-                            //populate map with new markers
-
-                          //if numbers entered are not an actual zip code
-                            //notify user
+                              //if numbers entered are not an actual zip code
+                                //notify user
                         }
 
                       }
