@@ -1,6 +1,21 @@
 <ion-view view-title="Farmer's Market">
   <ion-content class="padding" scroll="false" data-tap-disabled="true">
+  <div class="list">
+	  <div class="bar bar-header">
+		  <h1 class="title lightHeader">Locations Near You</h1>
+		</div>
+	</div><!-- list -->
     <div id="map">
     </div>
+    <div class="list">
+	  <div class="bar bar-header">
+		  <h1 class="title lightHeader">Search By Zip</h1>
+		</div>
+	</div><!-- list -->
+    <div class="list" id="zipInput">
+	  <label class="item item-input">
+	    <input type="text" ng-model="enterZip" ng-keypress="zipEnter($event, enterZip)" placeholder="Zip Code">
+	  </label>
+	</div><!-- list -->
   </ion-content>
 </ion-view>

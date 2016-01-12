@@ -2,14 +2,21 @@ angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope, $cordovaGeolocation, $q, $http) {
 
+  //private variables
+    var map;
 
+    // Holds array of markers so that markers may be cleared
+    var markerArray = [];
+
+  //Get current location of device
   var posOptions = {timeout: 10000, enableHighAccuracy: false};
   $cordovaGeolocation
     .getCurrentPosition(posOptions)
+    //the following function will set the map on inital pageload, create a function that, when called in the for loop, populates the map with the five closest locations. When zip is enetered we will clear map 
     .then(function (position) {
 
+      //holds position object
       var pos = position;
-      console.log("pos ", pos);
 
       //current lat of device
       var lat  = position.coords.latitude
@@ -23,11 +30,12 @@ angular.module('starter.controllers', [])
          var mapOptions = {
           center: new google.maps.LatLng(lat,lng),
           zoom: 10,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          mapTypeControl: false
         };
 
         //initialize map on current lat and lng
-        var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+         map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
         //add marker on current lat and lng of device
         var marker = new google.maps.Marker({
@@ -39,7 +47,7 @@ angular.module('starter.controllers', [])
 
         var infoWindowOptions = {
           content: 'You Are Here!'
-      };
+        };
 
       //set an info window, passing in inforWindowOptions above
       var infoWindow = new google.maps.InfoWindow(infoWindowOptions);
@@ -64,6 +72,7 @@ angular.module('starter.controllers', [])
               reject(error);
             }
           );
+
           //promise resolves address
         }).then(function(address){
 
@@ -141,6 +150,9 @@ angular.module('starter.controllers', [])
                           animation: google.maps.Animation.DROP
                         });
 
+                        //push marker into marker array
+                        markerArray.push(marketToMap);
+
                           var infoWindowOptions = {
                             content: '<h3>'+marketToPush.marketname+'</h3>'
                                       +'<br<<p>'+marketToPush.address+'</p>'
@@ -182,6 +194,67 @@ angular.module('starter.controllers', [])
 
 
                   }
+
+                  //attach event for clearing markers
+                      //show five closest markets to zip code
+                      //the keypress event is passed in
+                      $scope.zipEnter = function($event, enterZip){
+
+                        console.log("enterZip ", enterZip);
+
+                        //need an array of marker refs
+
+                        //capture which key was pressed
+                       var keyCode = $event.keyCode;
+                        
+                        //if enter key was pressed
+                        console.log("$scope.enterZip ", enterZip);
+                        if(keyCode === 13){
+
+                         //remove current markers
+                         markerArray[0].setMap(null);
+
+                      $q(function(resolve, reject) {
+                        $http.get('http://maps.googleapis.com/maps/api/geocode/json?address='+enterZip+'&country=us')
+                        .success(
+                          function(addressResponse) {
+                            resolve(addressResponse);
+
+                          }, function(error) {
+                            reject(error);
+                          }
+                        );
+
+                        //promise resolves address
+                      }).then(function(zipAddress){
+                        console.log("zipAddress ", zipAddress);
+
+                        //hold latitude of new location
+                        var lat = zipAddress.results[0].geometry.location.lat;
+
+                        //hold longitude of new location
+                        var lng = zipAddress.results[0].geometry.location.lng;
+
+                        //holds the center of the new new location
+                        var newCenter = {
+                          "lat" : lat,
+                          "lng" : lng
+                        }
+
+                        //pan map to new location
+                        map.panTo(newCenter);
+
+                      });
+
+                          //if numbers entered are an actual zip code
+                            //clear map of all current markers
+                            //populate map with new markers
+
+                          //if numbers entered are not an actual zip code
+                            //notify user
+                        }
+
+                      }
                     
 
 
@@ -198,7 +271,10 @@ angular.module('starter.controllers', [])
     }, function(err) {
       // error
     });
-
+  
+  
+    
+  
 
 })
 
