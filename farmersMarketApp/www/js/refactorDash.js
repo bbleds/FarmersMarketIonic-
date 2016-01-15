@@ -93,6 +93,7 @@
             //markets is an array of place objects
             var markets =  places.results;
             console.log("markets ", markets);
+////*********************** STOPPED HERE REFACTOR BELOW CODE
 
              var closeMarketNameArray = [];
             var closeMarketIdArray = [];

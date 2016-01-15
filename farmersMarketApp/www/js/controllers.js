@@ -11,7 +11,7 @@ angular.module('starter.controllers', [])
       var markerArray = [];
 
     //********** Controller functions
-      function mapCloseMarkets(apiPlacesResponse){
+      function mapMarketsNear(apiPlacesResponse){
 
          //the places returned from USDA api are based on the closest places
             //markets is an array of place objects
@@ -102,14 +102,14 @@ angular.module('starter.controllers', [])
               //when promise is returned
               }).then(function(places){
 
-                mapCloseMarkets(places);
+                mapMarketsNear(places);
 
 
               });
 
           })
 
-        })//Ends 'then' after ngCOrdova call
+        })//Ends 'then' after ngCordova call
 
 
 
