@@ -10,10 +10,12 @@ angular.module('starter.controllers', [])
       // Holds array of markers so that markers may be cleared
       var markerArray = [];
 
-    //********** Controller functions
 
-      //gets details of a specific market based on arguments passed in
-      function getMarketDetails(marketNameGiven, idGiven){
+//********** DashCtrl General Functions ************* //
+
+  // Gets details of a specific market based on arguments passed in
+    function getMarketDetails(marketNameGiven, idGiven){
+
         var closeMarketObjectsArray = [];
         console.log("marketName inside >>>>>>>>>>>", marketNameGiven);
                   console.log("ID given inside >>>>>>>>>>>",idGiven);
@@ -82,7 +84,7 @@ angular.module('starter.controllers', [])
 
       }
 
-      //draws the closest markets on the map
+    //Draws the closest markets on the map
       function mapMarketsNear(apiPlacesResponse){
 
         console.log("in map>>>>>>>>>>>>>>>>>>>>>>>>");
@@ -139,9 +141,11 @@ angular.module('starter.controllers', [])
 
 
 
-    // ********** Main Controller Functionality ***************
+// ********** Main Controller Functionality ***************
 
-      //Get current location of device using ngCordova
+  //Get current location of device using ngCordova, and map closest locations
+
+      //get position
       var posOptions = {timeout: 10000, enableHighAccuracy: false};
       $cordovaGeolocation
       .getCurrentPosition(posOptions)
@@ -228,10 +232,79 @@ angular.module('starter.controllers', [])
 
         })//Ends 'then' after ngCordova call
 
+    // Recenters map and draws new locations when user enters zip code in input field
+     $scope.zipEnter = function($event, enterZip){
 
+      //if numbers entered are an actual zip code
+                //clear map of all current markers
+                //populate map with new markers
 
+              //if numbers entered are not an actual zip code
+                //notify user
 
-    })
+      //capture which key was pressed
+       var keyCode = $event.keyCode;
+
+        //if enter key was pressed
+        if(keyCode === 13){
+           //clear old markers (these are stored in the markerArray variable)
+              for(var i = 0; i < markerArray.length; i++){
+                //for each item in array, clear from map
+                markerArray[i].setMap(null);
+            }
+
+          //return promise for data received from new google maps api call
+          $q(function(resolve, reject) {
+              $http.get('http://maps.googleapis.com/maps/api/geocode/json?address='+enterZip+'&country=us')
+              .success(
+                function(addressResponse) {
+                  resolve(addressResponse);
+
+                }, function(error) {
+                  reject(error);
+                }
+              );
+            //When promise resolves the zip code request
+          }).then(function(zipAddress){
+
+            //hold latitude of new location returned from google maps API
+            var lat = zipAddress.results[0].geometry.location.lat;
+
+            //hold longitude of new location returned from google maps API
+            var lng = zipAddress.results[0].geometry.location.lng;
+
+            //holds the center of the new new location
+            var newCenter = {
+              "lat" : lat,
+              "lng" : lng
+            }
+
+            //pan map to new location
+            map.panTo(newCenter);
+
+          });
+
+          //repopulate markers via the new zip enterd, the mapMarketsNear function and the getMarketDetails function
+            $q(function(resolve, reject) {
+              $http.get('http://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?zip='+enterZip)
+                .success(
+                  function(addressResponse) {
+                    resolve(addressResponse);
+
+                  }, function(error) {
+                    reject(error);
+                  }
+                );
+            //when promise is returned
+            }).then(function(places){
+
+              //map and populate new markers
+              mapMarketsNear(places);
+            });
+
+        }
+      }
+  })
 
 
 .controller('ChatsCtrl', function($scope, Chats) {
