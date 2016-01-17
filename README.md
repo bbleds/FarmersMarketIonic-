@@ -1,2 +1,2 @@
-# FarmersMarketIonic-
-An Ionic project using the Google Maps API and the USDA National Farmers Market Directory API
+# Ionic Farmer's Market
+A simple locator app built using the Ionic framework, Angular.js, Google Maps API, and the USDA National Farmers Market Directory API.
