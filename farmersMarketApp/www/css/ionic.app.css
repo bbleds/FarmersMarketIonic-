@@ -9732,13 +9732,10 @@ a.button {
   transition-duration: 0s; }
 
 #map {
-  height: 70%;
+  height: 80%;
   margin: 0;
   width: 100%;
   border-radius: 5px; }
-
-#zipInput {
-  margin-top: 46px; }
 
 .lightHeader {
   color: #616161; }
