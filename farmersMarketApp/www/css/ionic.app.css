@@ -9732,7 +9732,7 @@ a.button {
   transition-duration: 0s; }
 
 #map {
-  height: 335px;
+  height: 70%;
   margin: 0;
   width: 100%;
   border-radius: 5px; }
