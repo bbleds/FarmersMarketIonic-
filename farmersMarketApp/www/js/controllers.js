@@ -21,8 +21,8 @@ angular.module('starter.controllers', [])
     function getMarketDetails(marketNameGiven, idGiven){
 
         var closeMarketObjectsArray = [];
-        console.log("marketName inside >>>>>>>>>>>", marketNameGiven);
-                  console.log("ID given inside >>>>>>>>>>>",idGiven);
+        // console.log("marketName inside >>>>>>>>>>>", marketNameGiven);
+                  // console.log("ID given inside >>>>>>>>>>>",idGiven);
 
              $q(function(resolve, reject) {
                     $http.get('http://search.ams.usda.gov/farmersmarkets/v1/data.svc/mktDetail?id='+idGiven)
@@ -36,9 +36,9 @@ angular.module('starter.controllers', [])
                       );
                     })
                     .then(function(details){
-                        console.log("details ", details);
+                        // console.log("details ", details);
                         marketName = marketNameGiven;
-                        console.log("name", marketName);
+                        // console.log("name", marketName);
 
                         //parse lat and lng from url address recived from USDA api Googlelink key
                         var parsedLat = parseFloat(details.marketdetails.GoogleLink.split("?q=")[1].split("%2C%20")[0]);
@@ -91,12 +91,12 @@ angular.module('starter.controllers', [])
     //Draws the closest markets on the map
       function mapMarketsNear(apiPlacesResponse){
 
-        console.log("in map>>>>>>>>>>>>>>>>>>>>>>>>");
+        // console.log("in map>>>>>>>>>>>>>>>>>>>>>>>>");
 
          //the places returned from USDA api are based on the closest places
             //markets is an array of place objects
             var markets =  apiPlacesResponse.results;
-            console.log("markets ", markets);
+            // console.log("markets ", markets);
 
             //holds the name of close markets
             var closeMarketNameArray = [];
@@ -109,8 +109,8 @@ angular.module('starter.controllers', [])
               closeMarketIdArray.push(markets[i].id);
               closeMarketNameArray.push(markets[i].marketname);
             }
-            console.log("closeMarketArray ", closeMarketIdArray);
-            console.log("closeMarketNameArray ", closeMarketNameArray);
+            // console.log("closeMarketArray ", closeMarketIdArray);
+            // console.log("closeMarketNameArray ", closeMarketNameArray);
 
             var closeMarketObjectsArray = [];
 
@@ -129,13 +129,13 @@ angular.module('starter.controllers', [])
                   //splits market name into an array and removes distance which is at index 0 and is included in the name
                   var marketName = closeMarketNameArray[i].split(" ").splice(1).join(" ");
 
-                  console.log("marketName outside >>>>>>>>>>>", marketName);
-                  console.log("ID given outside >>>>>>>>>>>",closeMarketIdArray[i]);
+                  // console.log("marketName outside >>>>>>>>>>>", marketName);
+                  // console.log("ID given outside >>>>>>>>>>>",closeMarketIdArray[i]);
 
                     //this function gets the market details for each place, and accepts the name of the current market as an argument
                     getMarketDetails(marketName, closeMarketIdArray[i]);
 
-                    console.log("closeMarketIdArray[i] ", closeMarketIdArray[i]);
+                    // console.log("closeMarketIdArray[i] ", closeMarketIdArray[i]);
 
 
                   }
