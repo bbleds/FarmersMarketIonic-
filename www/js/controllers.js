@@ -185,7 +185,7 @@ angular.module('starter.controllers', [])
               position: {"lat": lat, "lng" : lng},
               map: map,
               title: 'ME',
-              icon : '../img/iphone2.png',
+              icon : './img/iphone2.png',
               animation: google.maps.Animation.DROP
             });
           //Set up contents of info window popup that will be attached to current position marker
