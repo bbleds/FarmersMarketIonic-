@@ -25,7 +25,7 @@ angular.module('starter.controllers', [])
                   // console.log("ID given inside >>>>>>>>>>>",idGiven);
 
              $q(function(resolve, reject) {
-                    $http.get('https://search.ams.usda.gov/farmersmarkets/v1/data.svc/mktDetail?id='+idGiven)
+                    $http.get('http://search.ams.usda.gov/farmersmarkets/v1/data.svc/mktDetail?id='+idGiven)
                       .success(
                         function(addressResponse) {
                           resolve(addressResponse);
@@ -219,7 +219,7 @@ angular.module('starter.controllers', [])
               var zipCode = address.results[2].address_components[0].long_name;
             //query USDA farmer's market api for markets close  to current location
               $q(function(resolve, reject) {
-                $http.get('https://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?zip='+zipCode)
+                $http.get('http://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?zip='+zipCode)
                   .success(
                     function(addressResponse) {
                       resolve(addressResponse);
@@ -290,7 +290,7 @@ angular.module('starter.controllers', [])
 
           //repopulate markers via the new zip enterd, the mapMarketsNear function and the getMarketDetails function
             $q(function(resolve, reject) {
-              $http.get('https://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?zip='+enterZip)
+              $http.get('http://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?zip='+enterZip)
                 .success(
                   function(addressResponse) {
                     resolve(addressResponse);
