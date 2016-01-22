@@ -4,6 +4,7 @@ var bower = require('bower');
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
+var minifyJs = require('gulp-minify');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
 
@@ -48,4 +49,13 @@ gulp.task('git-check', function(done) {
     process.exit(1);
   }
   done();
+});
+
+gulp.task('minifyJs', function() {
+  gulp.src('www/js/*.js')
+    .pipe(minifyJs({
+        exclude: ['tasks'],
+        ignoreFiles: ['.combo.js', '-min.js']
+    }))
+    .pipe(gulp.dest('dist'))
 });
