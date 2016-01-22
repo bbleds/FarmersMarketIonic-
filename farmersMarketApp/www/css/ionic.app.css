@@ -9732,10 +9732,23 @@ a.button {
   transition-duration: 0s; }
 
 #map {
-  height: 85%;
+  height: 87%;
   margin: 0;
   width: 100%;
   border-radius: 5px; }
 
 .lightHeader {
   color: #616161; }
+
+.spinner svg {
+  height: 300px;
+  width: 300px;
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  margin-left: -150px;
+  stroke: #D8D8D8;
+  fill: whitesmoke; }
+
+.bar.bar-energized {
+  background-color: #FF902D; }

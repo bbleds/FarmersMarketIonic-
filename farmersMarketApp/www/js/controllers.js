@@ -2,10 +2,14 @@ angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope, $cordovaGeolocation, $q, $http) {
 
-    //*********** Private Variables
+//*********** Private Variables
       var map;
       var lat;
       var lng;
+
+      //hide spinner if true
+      $scope.mapLoaded = false;
+
 
       // Holds array of markers so that markers may be cleared
       var markerArray = [];
@@ -136,6 +140,9 @@ angular.module('starter.controllers', [])
 
                   }
 
+                  //hide spinner
+                  $scope.mapLoaded = true;
+
 
       }
 
@@ -236,13 +243,6 @@ angular.module('starter.controllers', [])
     // Recenters map and draws new locations when user enters zip code in input field
      $scope.zipEnter = function($event, enterZip){
 
-      //if numbers entered are an actual zip code
-                //clear map of all current markers
-                //populate map with new markers
-
-              //if numbers entered are not an actual zip code
-                //notify user
-
       //capture which key was pressed
        var keyCode = $event.keyCode;
 
@@ -307,28 +307,3 @@ angular.module('starter.controllers', [])
       }
   })
 
-
-.controller('ChatsCtrl', function($scope, Chats) {
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
-
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  };
-})
-
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
-})
-
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
-});

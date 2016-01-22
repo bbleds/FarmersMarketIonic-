@@ -1,7 +1,8 @@
-<ion-view view-title="Ionic Farmer's Markets">
+<ion-view view-title="Farmers' Markets Near Me">
   <ion-content class="padding" scroll="false" data-tap-disabled="true">
-    <div id="map">
+    <div id="map" ng-hide="mapUnloaded">
     </div>
+    <ion-spinner icon="ripple" ng-hide="mapLoaded"></ion-spinner>
     <div class="list">
 	</div><!-- list -->
     <div class="list" id="zipInput">
