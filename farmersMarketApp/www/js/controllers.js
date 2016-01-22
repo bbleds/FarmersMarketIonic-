@@ -245,9 +245,12 @@ angular.module('starter.controllers', [])
 
       //capture which key was pressed
        var keyCode = $event.keyCode;
+       var zipPatt = /[0-9]/g;
 
-        //if enter key was pressed
-        if(keyCode === 13){
+        //if enter key was pressed and correct zip format was entered
+        if(keyCode === 13 && enterZip.match(zipPatt).length === 5){
+
+
            //clear old markers (these are stored in the markerArray variable)
               for(var i = 0; i < markerArray.length; i++){
                 //for each item in array, clear from map
