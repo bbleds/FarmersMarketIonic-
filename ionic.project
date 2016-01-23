@@ -4,7 +4,7 @@
     "proxies": [
     {
       "path": "/api",
-      "proxyUrl": "https://maps.googleapis.com"
+      "proxyUrl": "http://maps.googleapis.com"
     }
   ]
 }
