@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope, $cordovaGeolocation, $q, $http) {
+.controller('DashCtrl', function($scope, $cordovaGeolocation, $q, $http, $ionicModal) {
 
 //*********** Private Variables
       var map;
@@ -68,10 +68,13 @@ angular.module('starter.controllers', [])
                         //push marker into marker array
                         markerArray.push(marketToMap);
 
+                        // this.parentNode.childNodes[2]
+
                           var infoWindowOptions = {
                             content: '<h3>'+marketToPush.marketname+'</h3>'
-                                      +'<br<<p>'+marketToPush.address+'</p>'
-                                      +'<br<<p>'+marketToPush.schedule+'</p>'
+                                      +'<br><p>'+marketToPush.address+'</p>'
+                                      +'<br><p>'+marketToPush.schedule+'</p>'
+                                      +'<br><button class="sendTheDirs"> Give me directions </button></p>'
                         };
 
                         //set an info window, passing in inforWindowOptions above
@@ -83,6 +86,26 @@ angular.module('starter.controllers', [])
                           infoWindow.open(map, marketToMap);
 
                         });
+
+                        //set $scope.dirsRequested to false if no directions requested
+                        $scope.dirsRequested = false;
+
+                        //attach event listener
+                        $("body").on('click', '.sendTheDirs', function(){
+                            if($scope.dirsRequested === false){
+                              var address = this.parentNode.childNodes[2].innerHTML;
+
+                                $scope.getMarketDirections(address)
+
+                              //set that directions have been requested
+                              $scope.dirsRequested = true;
+
+                            } else {
+                              console.log("already fired")
+                            }
+
+                        });
+
 
                     })
 
@@ -147,6 +170,45 @@ angular.module('starter.controllers', [])
       }
 
 
+    //Get directions by lat and lng of two destinations
+    $scope.getMarketDirections = function(startLat, startLng, endLat, endLng){
+      //get directions from map center to address given
+
+
+    console.log(startLat.split(" ").join('+'));
+    // https://maps.googleapis.com/maps/api/geocode/json?address=startLat.split(" ").join('+')
+    console.log("https://maps.googleapis.com/maps/api/geocode/json?address="+startLat.split(" ").join('+'))
+        $http.get("https://maps.googleapis.com/maps/api/geocode/json?address="+startLat.split(" ").join('+'))
+        .then(function(directions){
+            var destLat = directions.data.results[0].geometry.location.lat;
+            var destLng = directions.data.results[0].geometry.location.lng;
+
+              //get directions
+              $http.get("/api/maps/api/directions/json?origin="+$scope.mainLat+","+$scope.mainLng+"&destination="+destLat+","+destLng+"&key=AIzaSyBvK7yvCrHcItZn5_955NLAM6MEQnXCZc0")
+              .then(function(directionResponse){
+                console.log("directions ", directionResponse);
+                //ng repeate for each item in the steps array
+
+                  $scope.directionsArray = directionResponse.data.routes[0].legs[0].steps;
+
+
+
+                console.log($scope.parseDirArray)
+                $ionicModal.fromTemplateUrl(
+                  '../templates/dirModal.html', {
+                    scope: $scope,
+                    animation: 'slide-in-up'
+                  }).then(function(modal) {
+                    $scope.modal = modal;
+                    $scope.modal.show();
+                    $scope.dirsRequested = false;
+                  });
+              })
+
+        })
+
+    }
+
 
 // ********** Main Controller Functionality ***************
 
@@ -168,6 +230,9 @@ angular.module('starter.controllers', [])
             lat  = position.coords.latitude;
           //Current longitude of device
             lng = position.coords.longitude;
+
+            $scope.mainLat = lat;
+            $scope.mainLng = lng;
 
       //** Set up initial map options
             var mapOptions = {

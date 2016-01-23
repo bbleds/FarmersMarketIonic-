@@ -1,0 +1,10 @@
+  <ion-modal-view>
+    <ion-header-bar>
+      <h1 class="title">My Modal title</h1>
+    </ion-header-bar>
+    <ion-content>
+			<div ng-repeat="direction in directionsArray">
+				<p>{{$index+1}} - {{direction.html_instructions.split('<\b\>').join("").split('<\/b\>').join("")}}</p>
+			</div>
+    </ion-content>
+  </ion-modal-view>

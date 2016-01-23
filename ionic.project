@@ -4,7 +4,7 @@
     "proxies": [
     {
       "path": "/api",
-      "proxyUrl": "https://api.forecast.io"
+      "proxyUrl": "https://maps.googleapis.com"
     }
   ]
 }
