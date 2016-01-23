@@ -185,7 +185,7 @@ angular.module('starter.controllers', [])
             var destLng = directions.data.results[0].geometry.location.lng;
 
               //get directions
-              $http.get("/api/maps/api/directions/json?origin="+$scope.mainLat+","+$scope.mainLng+"&destination="+destLat+","+destLng+"&key=AIzaSyBvK7yvCrHcItZn5_955NLAM6MEQnXCZc0")
+              $http.get("https://maps.googleapis.com/maps/api/directions/json?origin="+$scope.mainLat+","+$scope.mainLng+"&destination="+destLat+","+destLng+"&key=AIzaSyBvK7yvCrHcItZn5_955NLAM6MEQnXCZc0")
               .then(function(directionResponse){
                 console.log("directions ", directionResponse);
                 //ng repeate for each item in the steps array
