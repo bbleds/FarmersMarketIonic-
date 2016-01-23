@@ -174,6 +174,7 @@ angular.module('starter.controllers', [])
     $scope.getMarketDirections = function(startLat, startLng, endLat, endLng){
       //get directions from map center to address given
 
+      $scope.requestedDest = startLat;
 
     console.log(startLat.split(" ").join('+'));
     // https://maps.googleapis.com/maps/api/geocode/json?address=startLat.split(" ").join('+')
