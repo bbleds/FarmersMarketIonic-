@@ -1,0 +1,6 @@
+{
+    "name": "Aril - Farmers' Markets Near You",
+    "description": "A geolocation app that finds the closest farmers' markets, maps them, and gives directions",
+    "repository": "https://github.com/bbleds/FarmersMarketIonic-",
+    "keywords": ["ionic", "geolocation"]
+}
