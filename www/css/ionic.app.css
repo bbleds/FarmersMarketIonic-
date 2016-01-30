@@ -9752,3 +9752,27 @@ a.button {
 
 .bar.bar-energized {
   background-color: #FF902D; }
+
+.centerText {
+  width: 80%;
+  margin: 50px 0px;
+  margin-left: 10%;
+  font-size: 1.3rem;
+  line-height: 1.7rem; }
+
+#modalDir {
+  border-radius: 15px; }
+
+.mainModalBtn {
+  padding: 5px 20px;
+  left: 50%;
+  width: 110px;
+  position: relative;
+  margin-left: -55px; }
+
+.sendTheDirs {
+  position: relative;
+  left: 50%;
+  width: 160px;
+  margin-left: -80px;
+  font-size: 1rem; }

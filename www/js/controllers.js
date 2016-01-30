@@ -74,7 +74,7 @@ angular.module('starter.controllers', [])
                             content: '<h3>'+marketToPush.marketname+'</h3>'
                                       +'<br><p>'+marketToPush.address+'</p>'
                                       +'<br><p>'+marketToPush.schedule+'</p>'
-                                      +'<br><button class="sendTheDirs"> Give me directions </button></p>'
+                                      +'<br><button class="button button-calm sendTheDirs"> Give me directions </button></p>'
                         };
 
                         //set an info window, passing in inforWindowOptions above

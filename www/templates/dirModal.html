@@ -1,12 +1,12 @@
-  <ion-modal-view>
+  <ion-modal-view id="modalDir">
     <ion-header-bar>
       <h1 class="title">Directions to {{requestedDest }}</h1>
     </ion-header-bar>
-    <ion-content>
+    <ion-content class="modalDir">
 			<div ng-repeat="direction in directionsArray">
-				<p>{{$index+1}} - {{direction.html_instructions.split('<\b\>').join("").split('<\/b\>').join("").split('<\div style="font-size:0.9em"\>').join(". ").split('<\/div\>').join("")}}</p>
+				<p class="centerText">{{$index+1}} - {{direction.html_instructions.split('<\b\>').join("").split('<\/b\>').join("").split('<\div style="font-size:0.9em"\>').join(". ").split('<\/div\>').join("")}}</p>
 
 			</div>
-			<button ng-click="modal.hide()" class="button button-calm">Close</button>
+			<button ng-click="modal.hide()" class="button button-calm mainModalBtn">Close</button>
     </ion-content>
   </ion-modal-view>
