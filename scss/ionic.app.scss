@@ -1,0 +1,79 @@
+/*
+To customize the look and feel of Ionic, you can override the variables
+in ionic's _variables.scss file.
+
+For example, you might change some of the default colors:
+
+$light:                           #fff !default;
+$stable:                          #f8f8f8 !default;
+$positive:                        #387ef5 !default;
+$calm:                            #11c1f3 !default;
+$balanced:                        #33cd5f !default;
+$energized:                       #ffc900 !default;
+$assertive:                       #ef473a !default;
+$royal:                           #886aea !default;
+$dark:                            #444 !default;
+*/
+
+// The path for our ionicons font files, relative to the built CSS in www/css
+$ionicons-font-path: "../lib/ionic/fonts" !default;
+
+// Include all of Ionic
+@import "www/lib/ionic/scss/ionic";
+
+
+#map{
+  height: 87%;
+  margin: 0;
+  width: 100%;
+  border-radius: 5px;
+  // background-color: blue;
+}
+
+
+.lightHeader{
+	color: #616161;
+}
+
+.spinner svg{
+  height: 300px;
+  width: 300px;
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  margin-left: -150px;
+  stroke: #D8D8D8;
+  fill: whitesmoke;
+}
+
+.bar.bar-energized{
+  background-color: #FF902D;
+}
+
+.centerText{
+  width: 80%;
+  margin: 50px 0px;
+  margin-left: 10%;
+  font-size: 1.3rem;
+  line-height: 1.7rem;
+}
+
+#modalDir{
+  border-radius: 15px;
+}
+
+.mainModalBtn{
+  padding: 5px 20px;
+  left: 50%;
+  width: 110px;
+  position: relative;
+  margin-left: -55px;
+}
+
+.sendTheDirs{
+  position: relative;
+  left: 50%;
+  width: 160px;
+  margin-left: -80px;
+  font-size: 1rem;
+}
