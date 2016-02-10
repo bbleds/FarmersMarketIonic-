@@ -23,7 +23,7 @@ To use this app locally/get it on your machine -
     ```
   4. Install front-end dependencies (via bower)-
   	 ```
-    npm run bower
+    npm run bower install
     ```
   4. Run express server, and you're done! (after running, go to localhost:5000 in your browser to view) -
     ```
