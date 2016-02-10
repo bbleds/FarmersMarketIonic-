@@ -4,10 +4,10 @@ Aril is a locator app built using the Ionic framework, Angular.js, the Google Ma
 
 #Purpose & Goal
 
-This app was one of my first experiences with Ionic. My overall goal was to
-	1. Develop an app that integrated multiple APIs (one specifically being the Google Maps API)
-	2. Gain a greater understanding connecting express with front-end (namely using proxies via express to resolve CORS issues)
-	3. Gain Experience working with Angular, Ionic, Node, and Express.
+This app was one of my first experiences with Ionic. My overall goal was to -
+ 1. Develop an app that integrated multiple APIs (one specifically being the Google Maps API)
+ 2. Gain a greater understanding connecting express with front-end (namely using proxies via express to resolve CORS issues)
+ 3. Gain Experience working with Angular, Ionic, Node, and Express.
 
 #Features
 
