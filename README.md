@@ -16,10 +16,14 @@ Aril locates and plots the five closest farmers' markets to a devices location (
 #Local Use
 To use this app locally/get it on your machine -
   1. Git clone onto your local machine ( via HTTPS) - ``` https://github.com/bbleds/FarmersMarketIonic-.git```
-  2. Go into the new cloned directory - ``` cd Ionic-weather-app ```
-  3. Install packages required by this app -
+  2. Go into the new cloned directory - ``` cd FarmersMarketIonic- ```
+  3. Install packages required by this app (via npm) -
     ```
     npm install
+    ```
+  4. Install front-end dependencies (via bower)-
+  	 ```
+    npm run bower
     ```
   4. Run express server, and you're done! (after running, go to localhost:5000 in your browser to view) -
     ```
