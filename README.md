@@ -1,6 +1,6 @@
 # Aril
 
-Aril is a locator app built using the Ionic framework, Angular.js, the Google Maps API, and the USDA National Farmers Market Directory API. Try it out at [farmers-market-ionic.herokuapp.com](http://farmers-market-ionic.herokuapp.com/#/tab/dash).
+Aril is a locator app built using the Ionic framework, Angular.js, the Google Maps API, the Factual API, and the USDA National Farmers Market Directory API. Try it out at [farmers-market-ionic.herokuapp.com](http://farmers-market-ionic.herokuapp.com/#/tab/dash).
 
 #Purpose & Goal
 
