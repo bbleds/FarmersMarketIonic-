@@ -268,7 +268,8 @@ angular.module('starter.controllers', [])
 
         //Get current address of device via lat and lng variables and the Google Maps API in order to pull out zip code so that zip code can be given to UDSA API
           $q(function(resolve, reject) {
-              $http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+lat+','+lng+'')
+              // $http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+lat+','+lng+'')
+              $http.get("https://api.factual.com/geotag?latitude="+lat+"&longitude="+lng+"&KEY=ri0LdyyF5r7mlPTT146ydWIVTFyg0BECjaHam1Bb")
               .success(
                 function(addressResponse) {
                   resolve(addressResponse);
@@ -280,9 +281,10 @@ angular.module('starter.controllers', [])
           })
           //when promise is resolved
           .then(function(address){
-
+            console.log("address is ");
+            console.log(address);
             //get zip code from address object given from promise
-              var zipCode = address.results[2].address_components[0].long_name;
+              var zipCode = address.response.data.postcode.name;
             //query USDA farmer's market api for markets close  to current location
               $q(function(resolve, reject) {
                 $http.get('http://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?zip='+zipCode)
@@ -375,4 +377,3 @@ angular.module('starter.controllers', [])
         }
       }
   })
-
