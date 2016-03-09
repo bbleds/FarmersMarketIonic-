@@ -15,7 +15,7 @@ Aril locates and plots the five closest farmer's markets to a device's location 
 
 #Local Use
 To use this app locally/get it on your machine -
-  1. Git clone onto your local machine ( via HTTPS) - ``` https://github.com/bbleds/FarmersMarketIonic-.git```
+  1. Git clone onto your local machine ( via HTTPS) - ```git clone https://github.com/bbleds/FarmersMarketIonic-.git```
   2. Go into the new cloned directory - ``` cd FarmersMarketIonic- ```
   3. Install packages required by this app (via npm) -
     ```
