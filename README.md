@@ -11,7 +11,7 @@ This app was one of my first experiences with Ionic. My overall goal was to -
 
 #Features
 
-Aril locates and plots the five closest farmers' markets to a devices location (via latitude and longitude). After the inital mapping of locations, Aril accepts zip code input from a user and plots the new locations relative to the zip code entered. In addition, a user is able to tap/click on a plotted location, see location/market details, and receive step by step directions from the current device location to the selected market location.
+Aril locates and plots the five closest farmer's markets to a device's location (via latitude and longitude). After the initial mapping of locations, Aril accepts zip code input from a user and plots the new locations relative to the zip code entered. In addition, a user is able to tap/click on a plotted location, see location/market details, and receive step by step directions from the current device location to the selected market location.
 
 #Local Use
 To use this app locally/get it on your machine -
